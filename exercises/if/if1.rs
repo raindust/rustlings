@@ -7,6 +7,13 @@ pub fn bigger(a: i32, b:i32) -> i32 {
     // - another function call
     // - additional variables
     // Scroll down for hints.
+    
+    // a >= b ? a : b seems not work here
+    if a >= b {
+        a
+    } else {
+        b
+    }
 }
 
 // Don't mind this for now :)
@@ -15,7 +22,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn ten_is_bigger_than_eight() {
+    fn tigger_than_eight() {
         assert_eq!(10, bigger(10, 8));
     }
 

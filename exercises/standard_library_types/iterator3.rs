@@ -24,6 +24,13 @@ pub struct NotDivisibleError {
 // evenly divisible by b.
 // Otherwise, it should return a suitable error.
 pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
+    if b == 0 {
+        Err(DivisionError::DivideByZero)
+    } else if a % b != 0 {
+        Err(DivisionError::NotDivisible(NotDivisibleError { dividend: a, divisor: b }))
+    } else {
+        Ok(a / b)
+    }
 }
 
 #[cfg(test)]
@@ -40,9 +47,9 @@ mod tests {
     fn test_not_divisible() {
         assert_eq!(
             divide(81, 6),
-            Err(DivisionError::NotDivisible(NotDivisibleError{
+            Err(DivisionError::NotDivisible(NotDivisibleError {
                 dividend: 81,
-                divisor: 6
+                divisor: 6,
             }))
         );
     }
@@ -62,86 +69,27 @@ mod tests {
     #[test]
     fn result_with_list() {
         let numbers = vec![27, 297, 38502, 81];
-        let division_results = numbers.into_iter().map(|n| divide(n, 27));
-        let x //... Fill in here!
+        let division_results =
+            numbers.into_iter().map(|n| divide(n, 27));
+        let x = division_results.collect::<Vec<i32>>(); //... Fill in here!
         assert_eq!(format!("{:?}", x), "Ok([1, 11, 1426, 3])");
     }
 
     #[test]
     fn list_of_results() {
         let numbers = vec![27, 297, 38502, 81];
-        let division_results = numbers.into_iter().map(|n| divide(n, 27));
-        let x //... Fill in here!
+        let division_results =
+            numbers.into_iter().map(|n| divide(n, 27));
+        let x = division_results; //... Fill in here!
         assert_eq!(format!("{:?}", x), "[Ok(1), Ok(11), Ok(1426), Ok(3)]");
     }
     */
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Minor hint: In each of the two cases in the match in main, you can create x with either 
+// Minor hint: In each of the two cases in the match in main, you can create x with either
 // a 'turbofish' or by hinting the type of x to the compiler. You may try both.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Major hint: Have a look at the Iter trait and at the explanation of its collect function. 
+// Major hint: Have a look at the Iter trait and at the explanation of its collect function.
 // Especially the part about Result is interesting.
